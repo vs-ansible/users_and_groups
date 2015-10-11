@@ -26,3 +26,11 @@ users_and_groups:
       groups:
         - view_logs
 ```
+
+
+
+
+## License
+
+The MIT License (MIT)  
+Copyright (c) 2015 Voytek Solutions LTD
