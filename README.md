@@ -1,6 +1,10 @@
 # Users and Groups Management
 
-Usage:
+
+
+## Usage
+
+Playbook and vars files
 
 ```YAML
 - name: My Plaubook
@@ -13,7 +17,7 @@ Usage:
     - users_and_groups
 ```
 
-`vars/common_configs.yml`
+`vars/common_configs.yml` or `group_vars/production.yml` or `hosts/my_host`
 
 ```YAML
 users_and_groups:

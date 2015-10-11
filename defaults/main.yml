@@ -7,8 +7,13 @@ users_and_groups:
   # Users List
   # users:
   #   - name: my.username
+  #     createhome: yes
+  #     gecos: My Username
   #     groups:
   #       - wheel
   #       - users
+  #     shell: /bin/bash
+  #     ssh_key_file: files/ssh_keys/my.username.pub
+  #     state: present
   #
   users: [ ]
