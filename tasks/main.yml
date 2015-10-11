@@ -1,0 +1,52 @@
+---
+
+- name: Manage system groups
+  sudo: yes
+  group:
+    name: "{{ item }}"
+  with_items: users_and_groups.groups
+
+- name: Manage systems users
+  sudo: yes
+  user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    comment: "{{ item.gecos | default(item.name) }}"
+    createhome: "{{ item.createhome | default('yes') }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: users_and_groups.users
+
+- name: Add user to groups
+  sudo: yes
+  user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+  with_items: users_and_groups.users
+  when: item.groups is defined
+
+- name: Update home directory permissions
+  sudo: yes
+  file:
+    state: directory
+    path: "/home/{{ item.name }}"
+    mode: 0750
+  with_items: users_and_groups.users
+  when: item.createhome is defined
+
+- name: Create .ssh directory
+  sudo: yes
+  file:
+    path: /home/{{ item.name }}/.ssh
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0700
+    state: directory
+  with_items: users_and_groups.users
+
+- name: Copy ssh auth keys
+  sudo: yes
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ lookup('file', '../' + item.ssh_key_file) }}"
+  with_items: users_and_groups.users
+  when: item.ssh_key_file is defined

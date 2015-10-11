@@ -1,0 +1,14 @@
+---
+
+users_and_groups:
+  # simple array of group names
+  groups: [ ]
+
+  # Users List
+  # users:
+  #   - name: my.username
+  #     groups:
+  #       - wheel
+  #       - users
+  #
+  users: [ ]
